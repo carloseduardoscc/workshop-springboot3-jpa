@@ -9,14 +9,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Entity
-@Table( name = "tb_users" )
+//Modelo de dominio com todo o mapeamento para banco de dados usado para o UserResource
+
+//É importante sobrescrever HashCode e equals para o uso do framework
+
+@Entity //Marca a classe como uma entidade
+@Table( name = "tb_users" ) //renomeia a tabela como tb_users e não User por ser uma palavra reservada
 public class User implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue( strategy = GenerationType.IDENTITY )
+	@Id //Marca o atributo como chave primária
+	@GeneratedValue( strategy = GenerationType.IDENTITY ) //Marca o auto-incremento no banco de dados ID: 1, 2, 3 ...
 	private Long id;
 	private String name;
 	private String email;
