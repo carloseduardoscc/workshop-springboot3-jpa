@@ -2,6 +2,7 @@ package com.springproject.course.entities;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.springproject.course.entities.pk.OrderItemPK;
 
 import jakarta.persistence.EmbeddedId;
@@ -13,7 +14,7 @@ import jakarta.persistence.Table;
 public class OrderItem {
 	
 	@EmbeddedId
-	private OrderItemPK orderItemPK;
+	private OrderItemPK id = new OrderItemPK();
 	
 	private Integer quantity;
 	private Double price;
@@ -22,8 +23,8 @@ public class OrderItem {
 	}
 
 	public OrderItem(Order order, Product product, Integer quantity, Double price) {
-		orderItemPK.setOrder(order);
-		orderItemPK.setProduct(product);
+		id.setOrder(order);
+		id.setProduct(product);
 		this.quantity = quantity;
 		this.price = price;
 	}
@@ -45,24 +46,25 @@ public class OrderItem {
 	}
 	
 	public Order getOrder() {
-		return orderItemPK.getOrder();
+		return id.getOrder();
 	}
 
+	@JsonIgnore
 	public void setOrder(Order order) {
-		orderItemPK.setOrder(order);
+		id.setOrder(order);
 	}
 	
 	public Product getProduct() {
-		return orderItemPK.getProduct();
+		return id.getProduct();
 	}
 
 	public void setProduct(Product product) {
-		orderItemPK.setProduct(product);
+		id.setProduct(product);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(orderItemPK);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -74,7 +76,7 @@ public class OrderItem {
 		if (getClass() != obj.getClass())
 			return false;
 		OrderItem other = (OrderItem) obj;
-		return Objects.equals(orderItemPK, other.orderItemPK);
+		return Objects.equals(id, other.id);
 	}
 	
 	
